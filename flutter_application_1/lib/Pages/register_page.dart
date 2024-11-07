@@ -66,37 +66,34 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Expanded(
-            flex: 4,
-            child: Container(
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(50),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 2.0,
+                  horizontal: 16,
+                ),
+                child: Text(
+                  "Register",
+                  style: GoogleFonts.jost(
+                    fontSize: 48,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
-              child: Column(
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 2.0,
-                          horizontal: 16,
-                        ),
-                        child: Text(
-                          "Register",
-                          style: GoogleFonts.jost(
-                            fontSize: 48,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
                   const SizedBox(
-                    height: 40,
+                    height: 100,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -127,36 +124,40 @@ class _RegisterPageState extends State<RegisterPage> {
                   const SizedBox(
                     height: 10,
                   ),
-                  CustomTextField(
-                    wdt: 375,
-                    text1: 'SENHA',
-                    controller: senhaController,
-                    obscureText: true,
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  CustomTextField(
-                    wdt: 375,
-                    text1: 'CONFIRMAR SENHA',
-                    controller: confirmarSenhaController,
-                    obscureText: true,
-                  ),
                   const SizedBox(
                     height: 20,
                   ),
+                  const SizedBox(
+                    height: 150,
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
                   CustomButton(
                     function: () {
                       _register();
                     },
                     text: 'Registrar',
                   ),
-                  const SizedBox(
-                    height: 15,
-                  ),
                 ],
               ),
-            ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CustomButton(
+                function: () {
+                  _register();
+                },
+                text: 'Registrar',
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 20,
           )
         ],
       ),

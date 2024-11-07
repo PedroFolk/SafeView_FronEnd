@@ -34,14 +34,17 @@ class _StorageListPageState extends State<StorageListPage> {
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
-      final List<Map<String, dynamic>> fetchedItems =
-          List<Map<String, dynamic>>.from(
-        data['items'].map((item) => {
-              'name': item['name'],
-              'downloadUrl':
-                  '$bucketUrl/${Uri.encodeComponent(item['name'])}?alt=media',
-            }),
-      );
+
+      // Verifica que o item tem um campo 'name' e aplica o filtro 'Reports'
+      final List<Map<String, dynamic>> fetchedItems = (data['items'] as List)
+          .where((item) =>
+              item['name'] != null && item['name'].contains("Reports"))
+          .map((item) => {
+                'name': item['name'],
+                'downloadUrl':
+                    '$bucketUrl/${Uri.encodeComponent(item['name'])}?alt=media',
+              })
+          .toList();
 
       setState(() {
         items = fetchedItems;
@@ -63,8 +66,7 @@ class _StorageListPageState extends State<StorageListPage> {
         'Accept': 'application/pdf',
       };
 
-      final downloadsPath =
-          path.join(Platform.environment['USERPROFILE']!, 'Downloads');
+      final downloadsPath = path.join(Directory.current.path);
 
       String finalFileName = fileName;
       if (!finalFileName.toLowerCase().endsWith('.pdf')) {
