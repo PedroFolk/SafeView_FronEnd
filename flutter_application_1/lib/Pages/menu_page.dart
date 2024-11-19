@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Components/web_cam_streaming.dart';
+import 'package:flutter_application_1/Pages/gerencia_usuarios.dart';
+import 'package:flutter_application_1/Pages/login_page.dart';
+import 'package:flutter_application_1/Pages/main_page.dart';
 import 'package:flutter_application_1/Pages/menu_selector_page.dart';
 import 'package:flutter_application_1/Pages/register_page.dart';
-import 'package:flutter_application_1/Pages/test_page.dart';
+import 'package:flutter_application_1/Pages/relatorio_page.dart';
+import 'package:flutter_application_1/main.dart';
+import 'package:flutter_application_1/user_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class MenuPage extends StatefulWidget {
   const MenuPage({super.key});
@@ -23,36 +29,51 @@ class _MenuPageState extends State<MenuPage> {
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> _widgetOptions = <Widget>[
+    final List<Widget> widgetOptions = <Widget>[
       MenuSelectorPage(onButtonPressed: _onItemTapped),
       const RegisterPage(),
       const WebcamStreamScreen(),
       const StorageListPage(),
+      const GerenciaUsuarios(),
     ];
 
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Colors.white, size: 32),
         backgroundColor: const Color.fromRGBO(72, 105, 110, 1),
-        title: Text(
-          "SafeView",
-          style: GoogleFonts.juliusSansOne(
-            fontSize: 48,
-            color: Colors.white,
-          ),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.person,
-              size: 48,
-              color: Colors.white,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              "SafeView",
+              style: GoogleFonts.juliusSansOne(
+                fontSize: 48,
+                color: Colors.white,
+              ),
             ),
-          )
-        ],
+            IconButton(
+                onPressed: () {
+                  Provider.of<UserProvider>(context, listen: false).setUser("email", "senha");
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const MainPage()),
+                  );
+                },
+                icon: const Icon(Icons.exit_to_app))
+          ],
+        ),
+        // actions: [
+        //   IconButton(
+        //     onPressed: () {},
+        //     icon: const Icon(
+        //       Icons.person,
+        //       size: 48,
+        //       color: Colors.white,
+        //     ),
+        //   )
+        // ],
       ),
-      body: _widgetOptions[_selectedIndex],
+      body: widgetOptions[_selectedIndex],
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,

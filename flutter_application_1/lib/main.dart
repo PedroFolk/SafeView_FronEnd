@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/Pages/login_page.dart';
 import 'package:flutter_application_1/Pages/menu_page.dart';
 import 'package:window_manager/window_manager.dart';
+import 'package:flutter_application_1/user_provider.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   // Inicializar o Flutter antes de rodar código assíncrono
@@ -24,7 +27,12 @@ void main() async {
     await windowManager.focus();
   });
 
-  runApp(const MainApp());
+  runApp(MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => UserProvider()),
+      ],
+      child: const MainApp(),
+    ),);
 }
 
 class MainApp extends StatelessWidget {
@@ -34,7 +42,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: MenuPage(),
+      home: LoginPage(),
     );
   }
 }

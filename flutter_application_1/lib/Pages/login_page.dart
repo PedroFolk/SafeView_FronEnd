@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Components/api_requests.dart';
 import 'package:flutter_application_1/Components/custom_button.dart';
 import 'package:flutter_application_1/Components/textfield_custom.dart';
+import 'package:flutter_application_1/Pages/esqueceu_senha_page.dart';
 import 'package:flutter_application_1/Pages/menu_page.dart';
 import 'package:flutter_application_1/Pages/register_page.dart';
+import 'package:flutter_application_1/user_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -16,15 +19,13 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  TextEditingController nomeController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   TextEditingController senhaController = TextEditingController();
-
   Future<void> _login() async {
-    String nome = nomeController.text.trim();
+    String email = emailController.text.trim();
     String senha = senhaController.text;
 
-    // Verificação se os campos estão vazios
-    if (nome.isEmpty || senha.isEmpty) {
+    if (email.isEmpty || senha.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('Por favor, preencha todos os campos.'),
       ));
@@ -32,20 +33,17 @@ class _LoginPageState extends State<LoginPage> {
     }
 
     final ApiService apiService = ApiService();
-
-    final result = await apiService.loginUser(nome, senha);
+    final result = await apiService.loginUser(email, senha);
 
     if (result['error'] == true) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(result['message']),
       ));
     } else {
-      // Registro bem-sucedido, navega para a MainPage
+      Provider.of<UserProvider>(context, listen: false).setUser(email, senha);
       Navigator.push(
         context,
-        MaterialPageRoute(
-          builder: (context) => const MenuPage(),
-        ),
+        MaterialPageRoute(builder: (context) => const MenuPage()),
       );
     }
   }
@@ -115,8 +113,8 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       CustomTextField(
                         wdt: 375,
-                        text1: 'Nome',
-                        controller: nomeController,
+                        text1: 'email',
+                        controller: emailController,
                       ),
                       const SizedBox(
                         height: 30,
@@ -146,7 +144,8 @@ class _LoginPageState extends State<LoginPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const RegisterPage()),
+                                  builder: (context) =>
+                                      const EsqueceuSenhaPage()),
                             );
                           },
                           child: Text(

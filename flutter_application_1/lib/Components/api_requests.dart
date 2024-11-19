@@ -4,12 +4,64 @@ import 'package:http/http.dart' as http;
 class ApiService {
   final String baseUrl = "http://127.0.0.1:8000"; // URL base da API
 
+  
+  Future<Map<String, dynamic>> deleteUser(
+      String emailUsuarioApagando, String emailUsuarioAApagar) async {
+    final url = Uri.parse(
+        '$baseUrl/apagar_usuario/$emailUsuarioApagando/$emailUsuarioAApagar');
+
+    try {
+      final response = await http.delete(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        return json.decode(response.body);
+      } else {
+        return {
+          'error': true,
+          'message': json.decode(response.body)['detail'] ?? 'Erro desconhecido'
+        };
+      }
+    } catch (e) {
+      return {'error': true, 'message': e.toString()};
+    }
+  }
+
+  Future<List<Map<String, dynamic>>> getAllUsers() async {
+    final url = Uri.parse('$baseUrl/usuarios');
+
+    try {
+      final response = await http.get(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        // Conversão para lista de mapas
+        final List<dynamic> data = json.decode(response.body)['usuarios'];
+        return data.cast<Map<String, dynamic>>();
+      } else {
+        throw Exception(
+            'Erro ao buscar usuários: ${response.statusCode}, ${response.body}');
+      }
+    } catch (e) {
+      // Tratamento de exceção
+      throw Exception('Erro na requisição: $e');
+    }
+  }
+
   Future<Map<String, dynamic>> loginUser(
-      final String nome, String senha) async {
+      final String email, String senha) async {
     final url = Uri.parse('$baseUrl/login');
 
     final Map<String, dynamic> requestBody = {
-      'nome': nome,
+      'email': email,
       'senha': senha,
     };
 

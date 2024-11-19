@@ -222,11 +222,12 @@ class _StorageListPageState extends State<StorageListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Row(
           children: [
             Icon(Icons.storage, color: Colors.white),
             SizedBox(width: 8),
-            Text('Itens do Bucket Firebase'),
+            Text('Relatórios'),
           ],
         ),
       ),

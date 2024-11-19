@@ -20,6 +20,7 @@ class _MenuSelectorPageState extends State<MenuSelectorPage> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Button(
+                legenda: "Câmera",
                 function: () {
                   widget.onButtonPressed(2);
                 },
@@ -29,8 +30,9 @@ class _MenuSelectorPageState extends State<MenuSelectorPage> {
                 ),
               ),
               Button(
+                legenda: "On going",
                 function: () {
-                  widget.onButtonPressed(0);
+                  widget.onButtonPressed(4);
                 },
                 icon: const Icon(
                   Icons.badge_outlined,
@@ -43,6 +45,7 @@ class _MenuSelectorPageState extends State<MenuSelectorPage> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Button(
+                legenda: "Registrar usuários",
                 function: () {
                   widget.onButtonPressed(1);
                 },
@@ -52,6 +55,7 @@ class _MenuSelectorPageState extends State<MenuSelectorPage> {
                 ),
               ),
               Button(
+                legenda: "Relatório",
                 function: () {
                   widget.onButtonPressed(3);
                 },
@@ -71,11 +75,13 @@ class _MenuSelectorPageState extends State<MenuSelectorPage> {
 class Button extends StatelessWidget {
   final VoidCallback function;
   final Icon icon;
+  final String legenda;
 
   const Button({
     super.key,
     required this.function,
     required this.icon,
+    required this.legenda,
   });
 
   @override
@@ -84,23 +90,37 @@ class Button extends StatelessWidget {
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
         onTap: function, // Sem parênteses, para ser executada apenas ao clicar
-        child: Container(
-          width: 300,
-          height: 200,
-          decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black,
-                blurRadius: 5,
-                spreadRadius: 1,
-              )
-            ],
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: Center(
-            child: icon,
-          ),
+        child: Column(
+          children: [
+            Container(
+              width: 300,
+              height: 200,
+              decoration: BoxDecoration(
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.black,
+                    blurRadius: 5,
+                    spreadRadius: 1,
+                  )
+                ],
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Center(
+                child: icon,
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Text(
+              legenda,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            )
+          ],
         ),
       ),
     );
