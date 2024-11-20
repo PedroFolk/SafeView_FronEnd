@@ -53,7 +53,8 @@ class _MenuPageState extends State<MenuPage> {
             ),
             IconButton(
                 onPressed: () {
-                  Provider.of<UserProvider>(context, listen: false).setUser("email", "senha");
+                  Provider.of<UserProvider>(context, listen: false)
+                      .setUser("email");
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => const MainPage()),
@@ -100,21 +101,28 @@ class _MenuPageState extends State<MenuPage> {
               },
             ),
             ListTile(
-              title: const Text('Visualizar Camera'),
+              title: const Text('Visualizar Câmera'),
               onTap: () {
                 _onItemTapped(2);
                 Navigator.pop(context);
               },
             ),
             ListTile(
-              title: const Text('Registrar'),
+              title: const Text('Gerenciar Usuarios'),
+              onTap: () {
+                _onItemTapped(4);
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text('Registrar Usuários'),
               onTap: () {
                 _onItemTapped(1);
                 Navigator.pop(context);
               },
             ),
             ListTile(
-              title: const Text('Documentos'),
+              title: const Text('Relatórios'),
               onTap: () {
                 _onItemTapped(3);
                 Navigator.pop(context);

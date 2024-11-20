@@ -40,7 +40,7 @@ class _LoginPageState extends State<LoginPage> {
         content: Text(result['message']),
       ));
     } else {
-      Provider.of<UserProvider>(context, listen: false).setUser(email, senha);
+      Provider.of<UserProvider>(context, listen: false).setUser(email);
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const MenuPage()),

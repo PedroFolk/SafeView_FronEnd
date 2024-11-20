@@ -30,7 +30,7 @@ class _MenuSelectorPageState extends State<MenuSelectorPage> {
                 ),
               ),
               Button(
-                legenda: "On going",
+                legenda: "Gerenciar Usuarios",
                 function: () {
                   widget.onButtonPressed(4);
                 },

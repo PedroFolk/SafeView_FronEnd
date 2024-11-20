@@ -125,17 +125,6 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ],
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CustomButton(
-                    function: () {
-                      _register();
-                    },
-                    text: 'Registrar',
-                  ),
-                ],
-              ),
             ],
           ),
           Row(

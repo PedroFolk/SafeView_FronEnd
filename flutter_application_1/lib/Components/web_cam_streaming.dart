@@ -75,6 +75,7 @@ class _WebcamStreamScreenState extends State<WebcamStreamScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text('Webcam Streaming'),
       ),
       body: Column(
